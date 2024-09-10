@@ -1,6 +1,6 @@
 ---
 myhosts:
   hosts:
-    64.227.161.23:
+    <IP Address>
   vars:
     ansible_user: root
