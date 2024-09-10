@@ -1,0 +1,15 @@
+To install the collection:
+ansible-galaxy collection install newswangerd.collection_demo
+
+Default location of collection in ansible:
+.ansible/collections/ansible_collections/
+
+To view the directory structure of the installed collection:
+tree .ansible/collections/ansible_collections/newswangerd/
+
+To use the collection:
+ansible myhosts -m newswangerd.collection_demo.real_facts -i inventory.yaml 
+
+
+
+
