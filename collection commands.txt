@@ -1,3 +1,5 @@
+Collections are a distribution format for Ansible content that can include playbooks, roles, modules, and plugins.You can install and use collections through a distribution server, such as Ansible Galaxy, or a Pulp 3 Galaxy server.
+
 To install the collection:
 ansible-galaxy collection install newswangerd.collection_demo
 
