@@ -1,0 +1,46 @@
+---
+# tasks file for webserver
+- name: Update and Upgrade apt
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    upgrade: yes
+
+- name: Install Ngnix
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Create directory for static content
+  file:
+    path: "{{nginx_custom_directory}}"
+    state: directory
+    mode: 0755
+
+- name: Create the index.html file with "hello world" content
+  template: 
+    src: index.html.j2
+    dest: "{{nginx_custom_directory}}/index.html"
+    mode: 0644
+
+- name: Copy "index.html" to default Nginx location
+  copy:
+    src: "{{nginx_custom_directory}}/index.html"
+    dest: /var/www/html/index.html
+    mode: 0644
+    remote_src: true
+
+- name: Create link to the new config to enable it
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+    force: yes
+      #notify: 
+      #- Restart Nginx
+
+- name: Restart Nginx
+  service: 
+    name: nginx
+    state: restarted
+
